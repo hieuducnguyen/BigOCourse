@@ -1,7 +1,7 @@
 """
-Link:
-Time complexity: O(n)
-Space complexity: O(n)
+Link: https://codeforces.com/contest/540/problem/C
+Time complexity: O(2 * n * m)
+Space complexity: O(n * m)
 """
 
 from queue import Queue
