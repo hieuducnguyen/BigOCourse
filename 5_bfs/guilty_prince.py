@@ -1,7 +1,7 @@
 """
 Link:
-Time complexity: O(n)
-Space complexity: O(n)
+Time complexity: O(W * H + W * H)
+Space complexity: O(W * H)
 """
 
 from queue import Queue
@@ -40,4 +40,4 @@ if __name__ == '__main__':
             if '@' in text:
                 start_x, start_y = i, text.index('@')
             graph.append(list(text))
-        print("Case %s : %s" % (_ + 1, bfs(Y, X, graph, start_x, start_y)))
+        print("Case %s: %s" % (_ + 1, bfs(Y, X, graph, start_x, start_y)))

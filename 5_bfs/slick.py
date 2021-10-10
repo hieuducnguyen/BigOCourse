@@ -1,7 +1,7 @@
 """
 Link:
-Time complexity: O(n)
-Space complexity: O(n)
+Time complexity: O(N * M)
+Space complexity: O(N * M)
 """
 
 from queue import Queue

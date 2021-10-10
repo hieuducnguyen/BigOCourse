@@ -1,7 +1,7 @@
 """
-Link:
-Time complexity: O(n)
-Space complexity: O(n)
+Link: https://www.hackerearth.com/practice/algorithms/graphs/breadth-first-search/practice-problems/algorithm/dhoom-4/
+Time complexity: O(V + E) = O(10^5 + N * 10^5)
+Space complexity: O(10^5)
 """
 
 from queue import Queue
@@ -9,7 +9,7 @@ from queue import Queue
 MODULAR = 10 ** 5
 
 
-def method_name(X, target, N, key_list):
+def bfs(X, target, N, key_list):
     if X % MODULAR == target:
         return 0
     q = Queue()
@@ -32,4 +32,4 @@ if __name__ == '__main__':
     X, target = map(int, input().split())
     N = int(input())
     key_list = list(map(int, input().split()))
-    print(method_name(X, target, N, key_list))
+    print(bfs(X, target, N, key_list))

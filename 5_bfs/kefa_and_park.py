@@ -1,7 +1,7 @@
 """
 Link:
-Time complexity: O(n)
-Space complexity: O(n)
+Time complexity: O(V + E) = O(N + N-1) = O(N)
+Space complexity: O(V + E) = O(N + N-1) = O(N)
 """
 
 from queue import Queue
