@@ -1,7 +1,11 @@
 """
-Link:
-Time complexity: O(n)
-Space complexity: O(n)
+Link: https://www.spoj.com/problems/MAKEMAZE/
+Time complexity: O(M * N + M + N)
+Space complexity: O(M * N)
+M: row
+N: col
+M * N for find start point and end point
+M + N for bfs
 """
 
 from queue import Queue
@@ -30,23 +34,16 @@ def bfs(start_point, end_point, graph, M, N):
 
 if __name__ == '__main__':
     T = int(input())
-    for _ in range(T):
+    for t in range(T):
         M, N = map(int, input().split())
         end_point = []
         graph = []
-        for _ in range(M):
+        for r in range(M):
             graph.append(list(input()))
         for i in range(M):
-            row = graph[i]
-            for j in range(len(row)):
-                if i == 0 or i == (M - 1):
-                    if graph[i][j] == '.':
-                        end_point.append((i, j))
-                else:
-                    if (j == 0 or j == N - 1) and graph[i][j] == '.':
-                        end_point.append((i, j))
-        # print(end_point)
-        # print(graph)
+            for j in range(len(graph[i])):
+                if graph[i][j] == '.' and (i == 0 or i == M - 1 or j == 0 or j == N - 1):
+                    end_point.append((i, j))
         if len(end_point) == 2:
             valid = bfs(end_point[0], end_point[1], graph, M, N)
         else:
