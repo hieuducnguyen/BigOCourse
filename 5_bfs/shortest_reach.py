@@ -1,44 +1,53 @@
 """
-Link:
-Time complexity: O(N^2)
-Space complexity: O(C * (N + M))
+Link: https://www.hackerrank.com/challenges/bfsshortreach/problem
+Time complexity: O(Q * (N + M))
+Space complexity: O(Q * (N + M))
+Q: num test case
+N: vertex
+M: edge
 """
-from queue import Queue
+
+from collections import deque
 
 
-def bfs(S, graph, N):
-    visited = [False] * (N + 1)
-    dist = [-1] * (N + 1)
-    dist[S] = 0
-    q = Queue()
-    visited[S] = True
-    q.put(S)
-    while q.qsize() != 0:
-        vertex = q.get()
-        for adjacency in graph[vertex]:
-            if not visited[adjacency]:
-                dist[adjacency] = dist[vertex] + 1
-                visited[adjacency] = True
-                q.put(adjacency)
-    for i in range(1, len(dist)):
-        if i == S:
-            continue
-        if dist[i] == -1:
-            print(-1, end="")
-        else:
-            print(dist[i] * 6, end="")
-        if i != len(dist) - 1:
-            print(" ", end="")
+class Graph:
+    def __init__(self, V, E=0):
+        self.V = V
+        if E > 0:
+            self.alist = {key: list() for key in range(1, V + 1)}
+
+    def add_edge(self, source, dest):
+        self.alist.get(source).append(dest)
+        self.alist.get(dest).append(source)
+
+    def bfs(self, source):
+        queue = deque()
+        visited = [-1] * (self.V + 1)
+        visited[source] = 0
+        queue.append(source)
+        while queue:
+            source = queue.popleft()
+            for adjacency in self.alist[source]:
+                if visited[adjacency] < 0:
+                    visited[adjacency] = visited[source] + 6
+                    queue.append(adjacency)
+
+        self.distance = visited
+
+    def answer(self, source):
+        self.bfs(source)
+        result = " ".join(str(self.distance[x]) for x in range(1, len(self.distance)) if x != source)
+        return result
 
 
 if __name__ == '__main__':
     Q = int(input())
     for _ in range(Q):
         N, M = map(int, input().split())
-        graph = [[] for _ in range(N + 1)]
-        for j in range(M):
+        my_graph = Graph(N, M)
+        for i in range(M):
             u, v = map(int, input().split())
-            graph[u].append(v)
-            graph[v].append(u)
+            my_graph.add_edge(u, v)
+            my_graph.add_edge(v, u)
         S = int(input())
-        bfs(S, graph, N)
+        print(my_graph.answer(S))
