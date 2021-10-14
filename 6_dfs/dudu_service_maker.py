@@ -9,13 +9,14 @@ sys.setrecursionlimit(10 ** 4 + 5)
 
 
 def dfs_check_cycle(graph, i, N, path_visited, visited):
+    if path_visited[i]:
+        return True
+    if visited[i]:
+        return False
     path_visited[i] = True
     visited[i] = True
     for edge in graph[i]:
-        if not path_visited[edge]:
-            if dfs_check_cycle(graph, edge, N, path_visited, visited):
-                return True
-        else:
+        if dfs_check_cycle(graph, edge, N, path_visited, visited):
             return True
     path_visited[i] = False
     return False
@@ -32,12 +33,9 @@ if __name__ == '__main__':
         visited = [False for i in range(N)]
         is_cycle = True
         for i in range(N):
-            if not visited[i]:
-                inner_visited = [False for i in range(N)]
+            if not visited[i] and len(graph[i]) != 0:
+                inner_visited = [False for k in range(N)]
                 is_cycle = dfs_check_cycle(graph, i, N, inner_visited, visited)
-                for j in range(N):
-                    if inner_visited[j]:
-                        visited[j] = True
                 if is_cycle:
                     break
         if is_cycle:
