@@ -1,7 +1,7 @@
 """
-Link:
-Time complexity: O(n)
-Space complexity: O(n)
+Link: https://onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1895
+Time complexity: O(N + N * Log(N))
+Space complexity: O(N)
 """
 import heapq
 
