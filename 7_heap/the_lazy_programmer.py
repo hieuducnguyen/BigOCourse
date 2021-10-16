@@ -33,8 +33,8 @@ if __name__ == '__main__':
         for i in range(N):
             a, b, d = map(int, input().split())
             job_list.append(Job(a, b, d))
-        job_list = sorted(job_list, key=lambda x: x.d)
-        # job_list = sorted(job_list, key=lambda x: (x.d, x.a))
+        # job_list = sorted(job_list, key=lambda x: x.d)
+        job_list = sorted(job_list, key=lambda x: (x.d, x.a))
         ts = 0
         for i in range(len(job_list)):
             if ts + job_list[i].b <= job_list[i].d:
@@ -57,6 +57,7 @@ if __name__ == '__main__':
                             heapq.heappush(heap, job_list[i])
                         else:
                             need_money = val.total_run / val.a
+                            ts -= val.total_run
                             need_time = need_time - val.total_run
                             total += need_money
                     else:
