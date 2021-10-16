@@ -56,5 +56,31 @@ def method_2():
             print(min_heap[0])
 
 
+"""
+Time complexity: O(N * log(N))
+Space complexity: O(N)
+N : num value
+"""
+
+
+def method_3():
+    Q = int(input())
+    min_heap = []
+    remove_min_heap = []
+    for i in range(Q):
+        query = input().split()
+        if query[0] == "1":
+            val = int(query[1])
+            heapq.heappush(min_heap, val)
+        elif query[0] == "2":
+            val = int(query[1])
+            heapq.heappush(remove_min_heap, val)
+            while len(remove_min_heap) > 0 and remove_min_heap[0] == min_heap[0]:
+                heapq.heappop(remove_min_heap)
+                heapq.heappop(min_heap)
+        else:
+            print(min_heap[0])
+
+
 if __name__ == '__main__':
-    method_2()
+    method_3()
