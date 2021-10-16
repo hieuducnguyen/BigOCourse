@@ -1,7 +1,7 @@
 """
-Link:
-Time complexity: O(n)
-Space complexity: O(n)
+Link: https://www.spoj.com/problems/LAZYPROG/
+Time complexity: O(N * log(N))
+Space complexity: O(N)
 """
 import heapq
 
@@ -33,7 +33,6 @@ if __name__ == '__main__':
         for i in range(N):
             a, b, d = map(int, input().split())
             job_list.append(Job(a, b, d))
-        # job_list = sorted(job_list, key=lambda x: x.d)
         job_list = sorted(job_list, key=lambda x: (x.d, x.a))
         ts = 0
         for i in range(len(job_list)):
