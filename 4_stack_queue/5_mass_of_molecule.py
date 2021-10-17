@@ -1,7 +1,7 @@
 """
-Link:
-Time complexity: O(2*n)
-Space complexity: O(n)
+Link: https://www.spoj.com/problems/MMASS/
+Time complexity: O(2 * N)
+Space complexity: O(N)
 """
 
 
