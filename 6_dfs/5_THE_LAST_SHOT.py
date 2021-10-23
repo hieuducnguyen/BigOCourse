@@ -1,11 +1,9 @@
 """
-Link:
-Time complexity: O(n)
-Space complexity: O(n)
+Link: https://www.spoj.com/problems/LASTSHOT/
 """
 
 
-def dfs(graph, boom):
+def dfs(graph, boom, N):
     stack = []
     visited = [False for _ in range(N)]
     visited[boom] = True
@@ -21,7 +19,14 @@ def dfs(graph, boom):
     return size
 
 
-if __name__ == '__main__':
+"""
+Time complexity: O(N * (N + M))
+Space complexity: O(N + M)
+"""
+
+
+# DFS
+def method_1():
     N, M = map(int, input().split())
     graph = [[] for _ in range(N)]
     list_boom = []
@@ -31,5 +36,9 @@ if __name__ == '__main__':
         list_boom.append(u - 1)
     max_size = -1
     for boom in list_boom:
-        max_size = max(max_size, dfs(graph, boom))
+        max_size = max(max_size, dfs(graph, boom, N))
     print(max_size)
+
+
+if __name__ == '__main__':
+    method_1()

@@ -1,7 +1,7 @@
 """
-Link:
-Time complexity: O(n)
-Space complexity: O(n)
+Link: https://www.spoj.com/problems/ALLIZWEL/
+Time complexity: O(T * R * C)
+Space complexity: O(R * C)
 """
 
 dc = [-1, -1, -1, 0, 0, 1, 1, 1]
