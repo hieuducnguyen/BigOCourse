@@ -1,7 +1,7 @@
 """
-Link:
-Time complexity: O(N)
-Space complexity: O(N)
+Link: https://vn.spoj.com/problems/MICEMAZE/
+Time complexity: O(E * log (V))
+Space complexity: O(E + V)
 Author: Nguyen Duc Hieu
 """
 import heapq

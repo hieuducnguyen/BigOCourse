@@ -1,7 +1,7 @@
 """
-Link:
-Time complexity: O(N * log(501))
-Space complexity: O(N)
+Link: https://www.spoj.com/problems/TRVCOST/
+Time complexity: O(E * log(V)) = O (N * log(501))
+Space complexity: O(E + V)
 Author: Nguyen Duc Hieu
 """
 import heapq
