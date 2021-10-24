@@ -1,7 +1,7 @@
 """
-Link:
-Time complexity: O(N)
-Space complexity: O(N)
+Link: https://onlinejudge.org/index.php?option=onlinejudge&Itemid=8&page=show_problem&problem=1927
+Time complexity: O(T * (E + V))
+Space complexity: O(T * (E + V))
 Author: Nguyen Duc Hieu
 """
 from collections import deque

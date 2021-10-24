@@ -1,7 +1,7 @@
 """
-Link:
-Time complexity: O(N)
-Space complexity: O(N)
+Link: https://www.spoj.com/problems/SHPATH/
+Time complexity: O(s * p * E * Log(V)) s: test case, p: query
+Space complexity: O(E + V)
 Author: Nguyen Duc Hieu
 """
 import heapq

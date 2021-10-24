@@ -1,7 +1,7 @@
 """
-Link:
-Time complexity: O(N)
-Space complexity: O(N)
+Link: https://onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=3296
+Time complexity: O(T * E * log(V))
+Space complexity: O(T * (E + V))
 Author: Nguyen Duc Hieu
 """
 import heapq

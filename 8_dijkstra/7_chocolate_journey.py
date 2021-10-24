@@ -1,5 +1,5 @@
 """
-Link:
+Link: https://www.hackerearth.com/practice/algorithms/graphs/shortest-path-algorithms/practice-problems/algorithm/successful-marathon-0691ec04/
 Time complexity: O(N)
 Space complexity: O(N)
 Author: Nguyen Duc Hieu
