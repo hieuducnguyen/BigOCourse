@@ -22,7 +22,6 @@ def build_grap(len_map, word_id_map):
     graph = [[] for i in range(num_word)]
     for length in len_map.keys():
         word_list = len_map[length]
-        word_list.sort()
         num_same_len_word = len(word_list)
         for j in range(num_same_len_word):
             for k in range(j + 1, num_same_len_word):

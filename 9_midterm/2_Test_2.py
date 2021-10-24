@@ -1,5 +1,5 @@
 """
-Link:
+Link: https://codeforces.com/problemset/problem/520/A
 Time complexity: O(N)
 Space complexity: O(N)
 Author: Nguyen Duc Hieu

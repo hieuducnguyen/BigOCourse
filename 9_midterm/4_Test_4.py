@@ -1,7 +1,7 @@
 """
-Link:
-Time complexity: O(N)
-Space complexity: O(N)
+Link: https://onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1594
+Time complexity: O(T * R * C)
+Space complexity: O(T * R * C)
 Author: Nguyen Duc Hieu
 """
 from collections import deque

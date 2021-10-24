@@ -1,14 +1,13 @@
 """
-Link:
-Time complexity: O(n*T)
-Space complexity: O(n)
+Link: https://www.codechef.com/problems/COMPILER
+Time complexity: O(T * N)
+Space complexity: O(T * N)
 """
 
 
 def check_valid(text):
     stack = []
     result = 0
-    last_result = 0
     for i in range(len(text)):
         if text[i] == '<':
             stack.append(text[i])
@@ -16,10 +15,8 @@ def check_valid(text):
             if len(stack) == 0:
                 return result
             stack.pop()
-            result += 2
-            if len(stack) == 0:
-                last_result = result
-    return result if len(stack) == 0 else last_result
+            result = i + 1 if len(stack) == 0 else result
+    return result
 
 
 if __name__ == '__main__':

@@ -1,6 +1,6 @@
 """
 Link:
-Time complexity: O(N)
+Time complexity: O(T * N * log(N))
 Space complexity: O(N)
 Author: Nguyen Duc Hieu
 """
