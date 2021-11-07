@@ -1,5 +1,5 @@
 """
-Link:
+Link: https://onlinejudge.org/index.php?option=onlinejudge&Itemid=8&page=show_problem&problem=3252
 Time complexity: O(T * N * log(N))
 Space complexity: O(N)
 Author: Nguyen Duc Hieu

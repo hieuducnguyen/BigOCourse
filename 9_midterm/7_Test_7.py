@@ -1,77 +1,64 @@
 """
-Link:
-Time complexity: O(N)
+Source: BigO
+Time complexity: O(T * (10 * V^2 + M * (V + E)))
 Space complexity: O(N)
 Author: Nguyen Duc Hieu
 """
 from collections import deque
 
 
-def next_word(text_1, text_2):
+def is_next_word(word_1, word_2):
     diff = 0
-    for u in range(len(text_1)):
-        if text_1[u] != text_2[u]:
+    for i in range(len(word_1)):
+        if word_1[i] != word_2[i]:
             diff += 1
             if diff > 1:
-                return False
-    return True
+                break
+    return diff == 1
 
 
-def build_grap(len_map, word_id_map):
-    num_word = len(word_id_map)
-    graph = [[] for i in range(num_word)]
-    for length in len_map.keys():
-        word_list = len_map[length]
-        num_same_len_word = len(word_list)
-        for j in range(num_same_len_word):
-            for k in range(j + 1, num_same_len_word):
-                if next_word(word_list[j], word_list[k]):
-                    graph[word_id_map[word_list[j]]].append(word_id_map[word_list[k]])
-                    graph[word_id_map[word_list[k]]].append(word_id_map[word_list[j]])
-    return graph
-
-
-def bfs(start, end, graph):
-    visited = [-1 for _ in range(len(graph))]
-    queue = deque()
-    queue.append(start)
-    visited[start] = 0
+def bfs(source_id, dest_id, graph):
+    dist = [-1] * len(graph)
+    queue = deque([source_id])
+    dist[source_id] = 0
     while queue:
-        u = queue.popleft()
-        if u == end:
+        source = queue.popleft()
+        if source == dest_id:
             break
-        for v in graph[u]:
-            if visited[v] < 0:
-                visited[v] = visited[u] + 1
-                queue.append(v)
-    return visited[end]
+        for adjacency in graph[source]:
+            if dist[adjacency] < 0:
+                dist[adjacency] = dist[source] + 1
+                queue.append(adjacency)
+    return dist[dest_id]
 
 
 if __name__ == '__main__':
-    N = int(input())
+    T = int(input())
     input()
-    for i in range(N):
-        len_map = {}
-        word_id_map = {}
-        for k in range(1, 11):
-            len_map[k] = []
-        index = 0
+    for i in range(T):
+        list_word = []
         while True:
-            text = input()
-            if text == "*":
+            input_text = input()
+            if input_text == "*":
                 break
-            len_map[len(text)].append(text)
-            word_id_map[text] = index
-            index += 1
-        graph = build_grap(len_map, word_id_map)
-        # print(graph)
+            list_word.append(input_text)
+        graph = [[] for _ in range(len(list_word))]
+        for u in range(len(list_word)):
+            for v in range(u + 1, len(list_word)):
+                if len(list_word[u]) == len(list_word[v]):
+                    if is_next_word(list_word[u], list_word[v]):
+                        graph[u].append(v)
+                        graph[v].append(u)
         while True:
+            input_query = ""
             try:
-                input_text = input()
-            except EOFError as e:
+                input_query = input()
+            except EOFError:
+                exit()
+            if input_query == "":
                 break
-            if input_text == "":
-                break
-            word_1, word_2 = input_text.split()
-            distance = bfs(word_id_map[word_1], word_id_map[word_2], graph)
-            print("%s %s %s" % (word_1, word_2, distance))
+            source, dest = input_query.split()
+            source_id = list_word.index(source)
+            dest_id = list_word.index(dest)
+            cost = bfs(source_id, dest_id, graph)
+            print("{} {} {}".format(source, dest, cost))

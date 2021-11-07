@@ -10,24 +10,20 @@ direct_col = [-1, 1, 0, 0]
 direct_row = [0, 0, -1, 1]
 
 
-def bfs(start_x, start_y, end_x, end_y, graph, R, C):
-    graph[start_x][start_y] = -1
-    distance = [[-1 for i in range(C)] for j in range(R)]
-    distance[start_x][start_y] = 0
-    queue = deque()
-    queue.append((start_x, start_y))
+def bfs(start_row, start_col, end_row, end_col, graph, R, C):
+    queue = deque([(start_row, start_col)])
+    graph[start_row][start_col] = 1
     while queue:
-        u, v = queue.popleft()
-        if u == end_x and v == end_y:
+        source_row, source_col = queue.popleft()
+        if source_row == end_row and source_col == end_col:
             break
-        for direct in range(4):
-            new_u = u + direct_row[direct]
-            new_v = v + direct_col[direct]
-            if 0 <= new_u < R and 0 <= new_v < C and graph[new_u][new_v] != 1 and graph[new_u][new_v] != -1:
-                distance[new_u][new_v] = distance[u][v] + 1
-                graph[new_u][new_v] = -1
-                queue.append((new_u, new_v))
-    return distance[end_x][end_y]
+        for i in range(4):
+            next_row = source_row + direct_row[i]
+            next_col = source_col + direct_col[i]
+            if 0 <= next_col < C and 0 <= next_row < R and graph[next_row][next_col] == 0:
+                queue.append((next_row, next_col))
+                graph[next_row][next_col] = graph[source_row][source_col] + 1
+    return graph[end_row][end_col] - 1
 
 
 if __name__ == '__main__':
@@ -35,16 +31,14 @@ if __name__ == '__main__':
         R, C = map(int, input().split())
         if R == 0 and C == 0:
             break
-        num_row_bomb = int(input())
-        graph = [[0 for i in range(C)] for j in range(R)]
-        for i in range(num_row_bomb):
-            input_list = list(map(int, input().split()))
-            index_bomb_row = input_list[0]
-            num_bomb_in_row = input_list[1]
-            index_collumn = input_list[2:]
-            for k in index_collumn:
-                graph[index_bomb_row][k] = 1
-        start_x, start_y = map(int, input().split())
-        end_x, end_y = map(int, input().split())
-        time = bfs(start_x, start_y, end_x, end_y, graph, R, C)
-        print(time)
+        graph = [[0] * C for i in range(R)]
+        row_bomb_num = int(input())
+        for i in range(row_bomb_num):
+            cols = list(map(int, input().split()))
+            row_id = cols.pop(0)
+            num_bomb = cols.pop(0)
+            for k in cols:
+                graph[row_id][k] = -1
+        start_row, start_col = map(int, input().split())
+        end_row, end_col = map(int, input().split())
+        print(bfs(start_row, start_col, end_row, end_col, graph, R, C))

@@ -1,7 +1,7 @@
 """
-Link: 
-Time complexity: O(n)
-Space complexity: O(n)
+Link: https://codeforces.com/problemset/problem/439/B
+Time complexity: O(N * Log(N))
+Space complexity: O(N)
 """
 
 

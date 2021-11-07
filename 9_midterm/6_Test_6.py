@@ -1,5 +1,5 @@
 """
-Link:
+Source: BigO
 Time complexity: O(N)
 Space complexity: O(N)
 Author: Nguyen Duc Hieu
