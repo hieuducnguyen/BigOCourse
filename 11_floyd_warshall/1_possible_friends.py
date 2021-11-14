@@ -1,51 +1,38 @@
 """
 Link: https://www.spoj.com/problems/SOCIALNE/#:~:text=Two%20persons%20are%20possible%20friends,help%20him%20in%20this%20task.
-Time complexity: O(N)
-Space complexity: O(N)
+Time complexity: O(V ^ 3) V: num friend
+Space complexity: O(V ^ 2)
 Author: Nguyen Duc Hieu
 """
 
 INF = int(1e10)
 
 
-def floy_warshall(matrix):
-    vertex_num = len(matrix)
-    dist = [[INF for u in range(vertex_num)] for v in range(vertex_num)]
-    for i in range(vertex_num):
-        for j in range(vertex_num):
-            if matrix[i][j] == 'Y':
-                dist[i][j] = 1
-            if i == j:
-                dist[i][i] = 0
-    for k in range(vertex_num):
-        for i in range(vertex_num):
-            if dist[i][k] == INF:
-                continue
-            for j in range(vertex_num):
-                if dist[k][j] != INF and dist[i][j] > dist[i][k] + dist[k][j]:
-                    dist[i][j] = dist[i][k] + dist[k][j]
-    return dist
+def count_possible_friend(friend_list):
+    num_friend = len(friend_list)
+    possible_friend = [[0] * num_friend for _ in range(num_friend)]
+    for k in range(num_friend):
+        for i in range(num_friend):
+            for j in range(i + 1, num_friend):
+                if friend_list[i][j] == "N" and friend_list[i][k] == "Y" and friend_list[k][j] == "Y":
+                    possible_friend[i][j] = 1
+                    possible_friend[j][i] = 1
+    return possible_friend
 
 
 if __name__ == '__main__':
     T = int(input())
-    for i in range(T):
-        matrix = []
-        first_line = list(input())
-        matrix.append(first_line)
-        len_matrix = len(first_line)
-        for k in range(len_matrix - 1):
-            line = list(input())
-            matrix.append(line)
-        result = floy_warshall(matrix)
+    for t in range(T):
+        friend_list = []
+        first_person = list(input())
+        friend_list.append(first_person)
+        for i in range(1, len(first_person)):
+            friend_list.append(list(input()))
+        possible_friend_list = count_possible_friend(friend_list)
+        max_friend_id = 0
         max_possible_friend = 0
-        max_possible_friend_id = 0
-        for k in range(len_matrix):
-            possible_friend = 0
-            for v in range(len_matrix):
-                if result[k][v] == 2:
-                    possible_friend += 1
-            if max_possible_friend < possible_friend:
-                max_possible_friend = possible_friend
-                max_possible_friend_id = k
-        print(max_possible_friend_id, max_possible_friend)
+        for i in range(len(possible_friend_list)):
+            if max_possible_friend < sum(possible_friend_list[i]):
+                max_friend_id = i
+                max_possible_friend = sum(possible_friend_list[i])
+        print("{} {}".format(max_friend_id, max_possible_friend))

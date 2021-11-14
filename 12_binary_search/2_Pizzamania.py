@@ -1,7 +1,7 @@
 """
-Link:
-Time complexity: O(N)
-Space complexity: O(N)
+Link: https://www.spoj.com/problems/OPCPIZZA/
+Time complexity: O(T * N)
+Space complexity: O(T * N)
 Author: Nguyen Duc Hieu
 """
 

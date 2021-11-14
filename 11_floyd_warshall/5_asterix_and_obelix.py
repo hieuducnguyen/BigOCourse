@@ -1,11 +1,11 @@
 """
-Link:
-Time complexity: O(N)
-Space complexity: O(N)
+Link: https://onlinejudge.org/index.php?option=onlinejudge&Itemid=8&page=show_problem&problem=1187
+Time complexity: O(T * C^3)
+Space complexity: O(T * C^2)
 Author: Nguyen Duc Hieu
 """
 
-INF = int(1e100)
+INF = int(1e10)
 
 
 def floyd_warshall(graph, num_vertex, cost_party):
@@ -14,26 +14,16 @@ def floyd_warshall(graph, num_vertex, cost_party):
         for j in range(num_vertex):
             if graph[i][j] != INF:
                 dist[i][j] = (graph[i][j], max(cost_party[i], cost_party[j]))
-        # for e in range(2):
-        #     for k in range(num_vertex):
-        #         for i in range(num_vertex):
-        #             if dist[i][k][0] == INF:
-        #                 continue
-        #             for j in range(num_vertex):
-        #                 cost_party_in_place = max(dist[i][k][1], dist[k][j][1])
-        #                 if dist[k][j][0] != INF and dist[i][j][0] + dist[i][j][1] > dist[i][k][0] + dist[k][j][
-        #                     0] + cost_party_in_place:
-        #                     dist[i][j] = (dist[i][k][0] + dist[k][j][0], cost_party_in_place)
-
-        for k in range(num_vertex):
-            for i in range(num_vertex):
-                if dist[i][k][0] == INF:
-                    continue
-                for j in range(num_vertex):
-                    cost_party_in_place = max(dist[i][k][1], dist[k][j][1])
-                    if dist[k][j][0] != INF and dist[i][j][0] + dist[i][j][1] > dist[i][k][0] + dist[k][j][
-                        0] + cost_party_in_place:
-                        dist[i][j] = (dist[i][k][0] + dist[k][j][0], cost_party_in_place)
+        for e in range(2):
+            for k in range(num_vertex):
+                for i in range(num_vertex):
+                    if dist[i][k][0] == INF:
+                        continue
+                    for j in range(num_vertex):
+                        cost_party_in_place = max(dist[i][k][1], dist[k][j][1])
+                        if dist[k][j][0] != INF and dist[i][j][0] + dist[i][j][1] > dist[i][k][0] + dist[k][j][
+                            0] + cost_party_in_place:
+                            dist[i][j] = (dist[i][k][0] + dist[k][j][0], cost_party_in_place)
     return dist
 
 

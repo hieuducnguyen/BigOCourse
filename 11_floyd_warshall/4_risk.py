@@ -1,7 +1,7 @@
 """
 Link:
-Time complexity: O(N)
-Space complexity: O(N)
+Time complexity: O(T * V^3)
+Space complexity: O(T * V^3)
 Author: Nguyen Duc Hieu
 """
 INF = int(1e10)

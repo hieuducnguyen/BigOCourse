@@ -1,82 +1,70 @@
 """
-Link:
-Time complexity: O(N)
-Space complexity: O(N)
+Link: https://vjudge.net/problem/UVA-10171
+Time complexity: O(T * (E * log(V))
+Space complexity: O(T * (E + V))
 Author: Nguyen Duc Hieu
 """
+import heapq
+
 INF = int(1e10)
 
 
-def bellman_ford(source, edge_list, num_vertex):
-    dist = [INF for _ in range(num_vertex)]
-    dist[source] = 0
-    for i in range(num_vertex - 1):
-        change = False
-        for u, v, w in edge_list:
-            if dist[u] != INF and dist[v] > dist[u] + w:
-                dist[v] = dist[u] + w
-                change = True
-        if not change:
-            break
+def dijkstra(graph, start, places):
+    dist = dict()
+    for vertex in places:
+        dist[vertex] = INF
+    dist[start] = 0
+    min_heap = [(0, start)]
+    while min_heap:
+        cur_dist, source = heapq.heappop(min_heap)
+        if cur_dist > dist[source]: continue
+        for adjacency, distance in graph[source]:
+            if dist[source] + distance < dist[adjacency]:
+                dist[adjacency] = dist[source] + distance
+                heapq.heappush(min_heap, (dist[adjacency], adjacency))
     return dist
 
 
 if __name__ == '__main__':
     while True:
-        num_street = int(input())
-        if num_street == 0:
+        N = int(input())
+        if N == 0:
             break
-        edge_list_young = []
-        edge_list_old = []
-        map_edge_list = {'Y': edge_list_young, 'M': edge_list_old}
-        name_id_map = {}
-        id_name_map = {}
-        id_place = -1
-        for _ in range(num_street):
-            input_line = input().split()
-            start = input_line[2]
-            end = input_line[3]
-            w = int(input_line[4])
-            if start not in name_id_map:
-                id_place += 1
-                name_id_map[start] = id_place
-                id_name_map[id_place] = start
-            start_id = name_id_map[start]
-            if end not in name_id_map:
-                id_place += 1
-                name_id_map[end] = id_place
-                id_name_map[id_place] = end
-            end_id = name_id_map[end]
-            update_edge_list = map_edge_list[input_line[0]]
-            if input_line[1] == 'U':
-                update_edge_list.append((start_id, end_id, w))
-            else:
-                update_edge_list.append((start_id, end_id, w))
-                update_edge_list.append((end_id, start_id, w))
-        person_1, person_2 = input().split()
-        if person_1 not in name_id_map:
-            id_place += 1
-            name_id_map[person_1] = id_place
-            id_name_map[id_place] = person_1
-        if person_2 not in name_id_map:
-            id_place += 1
-            name_id_map[person_2] = id_place
-            id_name_map[id_place] = person_2
-        dist_1 = bellman_ford(name_id_map[person_1], edge_list_young, len(name_id_map))
-        dist_2 = bellman_ford(name_id_map[person_2], edge_list_old, len(name_id_map))
-        result = []
-        min_distance = INF
-        for place_id in id_name_map:
-            if dist_1[place_id] == INF or dist_2[place_id] == INF:
-                continue
-            if min_distance == dist_1[place_id] + dist_2[place_id]:
-                result.append(id_name_map[place_id])
-            elif min_distance > dist_1[place_id] + dist_2[place_id]:
-                result = [id_name_map[place_id]]
-                min_distance = dist_1[place_id] + dist_2[place_id]
-        result.sort()
-        if min_distance == INF:
+        edge_list_map = {'Y': [], 'M': []}
+        places = set()
+        for n in range(N):
+            young, direct, X, Y, C = input().split()
+            edge_list = edge_list_map.get(young)
+            edge_list.append((X, Y, int(C)))
+            places.update([X, Y])
+            if direct == "B":
+                edge_list.append((Y, X, int(C)))
+        my_place, his_place = input().split()
+        places.update([my_place, his_place])
+        young_graph = dict()
+        old_graph = dict()
+        for place in places:
+            young_graph[place] = []
+            old_graph[place] = []
+        for X, Y, C in edge_list_map.get("Y"):
+            young_graph[X].append((Y, C))
+        for X, Y, C in edge_list_map.get("M"):
+            old_graph[X].append((Y, C))
+
+        young_dist = dijkstra(young_graph, my_place, places)
+        old_dist = dijkstra(old_graph, his_place, places)
+        min_dist = INF
+        list_place = []
+        for place in places:
+            if young_dist.get(place, INF) != INF and old_dist.get(place, INF) != INF:
+                if young_dist.get(place) + old_dist.get(place) < min_dist:
+                    min_dist = young_dist.get(place) + old_dist.get(place)
+                    list_place = [place]
+                elif young_dist.get(place) + old_dist.get(place) == min_dist:
+                    list_place.append(place)
+        if min_dist == INF:
             print("You will never meet.")
         else:
-            print(min_distance, end=" ")
-            print(*result, sep=" ")
+            list_place.sort()
+            print(min_dist, end=" ")
+            print(*list_place, sep=" ")

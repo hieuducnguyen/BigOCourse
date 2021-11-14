@@ -1,6 +1,6 @@
 """
-Link:
-Time complexity: O(N)
+Link: https://www.spoj.com/problems/EKO/
+Time complexity: O(N * Log(N) + Log(N))
 Space complexity: O(N)
 Author: Nguyen Duc Hieu
 """
@@ -18,8 +18,8 @@ if __name__ == '__main__':
     N, M = map(int, input().split())
     woods = list(map(int, input().split()))
     woods.sort()
-    start, end = (sum(woods) - M) // len(woods), woods[-1] + 1
-    result = (sum(woods) - M) // len(woods)
+    start, end = 0, woods[-1]
+    result = 0
     while start < end:
         mid = (start + end) // 2
         wood = take_woods(mid, woods)

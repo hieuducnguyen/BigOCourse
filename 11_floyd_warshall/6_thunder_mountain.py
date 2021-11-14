@@ -1,7 +1,7 @@
 """
-Link:
-Time complexity: O(N)
-Space complexity: O(N)
+Link: https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1744
+Time complexity: O(T * V^3)
+Space complexity: O(T * V^3)
 Author: Nguyen Duc Hieu
 """
 
