@@ -1,7 +1,7 @@
 """
-Link: 
-Time complexity: O(N)
-Space complexity: O(N)
+Link: https://onlinejudge.org/index.php?option=onlinejudge&Itemid=8&page=show_problem&problem=1338
+Time complexity: O(T * N^2 * Log(N)) E: num edge = N(N-1)/2
+Space complexity: O(N^2)
 Author: Nguyen Duc Hieu
 """
 import heapq
@@ -11,19 +11,25 @@ import math
 INF = int(1e10)
 
 
-def prim(graph, N):
-    dist = [INF] * N
-    min_heap = [(0, 0)]
+def distance(first_point, second_point):
+    return math.sqrt((first_point[0] - second_point[0]) ** 2 + (first_point[1] - second_point[1]) ** 2)
+
+
+def prim(matrix):
+    V = len(matrix)
+    visited = [False] * V
+    dist = [INF] * V
     dist[0] = 0
-    visited = [False] * N
+    min_heap = [(0, 0)]
     while min_heap:
-        weight, source = heapq.heappop(min_heap)
+        weight_source, source = heapq.heappop(min_heap)
         if visited[source]: continue
         visited[source] = True
-        for adjacency, weight in graph[source]:
+        for i in range(N):
+            adjacency, weight = i, matrix[source][i]
             if not visited[adjacency] and dist[adjacency] > weight:
-                dist[adjacency] = weight
                 heapq.heappush(min_heap, (weight, adjacency))
+                dist[adjacency] = weight
     return dist
 
 
@@ -31,30 +37,21 @@ if __name__ == '__main__':
     while True:
         try:
             N = int(input())
-            list_building = []
-            for i in range(N):
-                x, y = map(int, input().split())
-                list_building.append((x, y))
-            available = []
+            matrix = [[INF] * N for _ in range(N)]
+            point_list = []
+            for n in range(N):
+                X, Y = map(int, input().split())
+                point_list.append((X, Y))
             M = int(input())
-            graph = [[] for _ in range(N)]
-            for i in range(M):
-                building_1, building_2 = map(int, input().split())
-                # print(building_1, building_2)
-                available.append((building_1 - 1, building_2 - 1))
-                available.append((building_2 - 1, building_1 - 1))
-                graph[building_1 - 1].append((building_2 - 1, 0))
-                graph[building_2 - 1].append((building_1 - 1, 0))
-                # print(available)
-                # print(i)
+            for m in range(M):
+                A, B = map(lambda x: int(x) - 1, input().split())
+                matrix[A][B] = 0
+                matrix[B][A] = 0
             for i in range(N):
                 for j in range(i + 1, N):
-                    distance = math.sqrt(
-                        (list_building[i][0] - list_building[j][0]) ** 2 + (
-                                list_building[i][1] - list_building[j][1]) ** 2)
-                    graph[i].append((j, distance))
-                    graph[j].append((i, distance))
-            dist = prim(graph, N)
+                    if matrix[i][j] == INF:
+                        matrix[i][j] = matrix[j][i] = distance(point_list[i], point_list[j])
+            dist = prim(matrix)
             print("{:.2f}".format(sum(dist)))
         except EOFError:
-            break
+            exit()

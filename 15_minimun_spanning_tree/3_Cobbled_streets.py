@@ -1,7 +1,7 @@
 """
-Link:
-Time complexity: O(N)
-Space complexity: O(N)
+Link: https://www.spoj.com/problems/CSTREET/
+Time complexity: O(M * Log(N))
+Space complexity: O(M + N)
 Author: Nguyen Duc Hieu
 """
 import heapq
