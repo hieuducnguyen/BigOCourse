@@ -1,7 +1,7 @@
 """
-Link:
-Time complexity: O(N)
-Space complexity: O(N)
+Link: https://www.hackerrank.com/challenges/primsmstsub/problem
+Time complexity: O(M * Log(N))
+Space complexity: O(M + N)
 Author: Nguyen Duc Hieu
 """
 import heapq
@@ -27,19 +27,12 @@ def prim(graph, source, N):
 
 if __name__ == '__main__':
     N, M = map(int, input().split())
-    dist = [[INF] * N for _ in range(N)]
+    graph = [[] for _ in range(N)]
     for m in range(M):
         x, y, cost = map(int, input().split())
-        if dist[x - 1][y - 1] > cost:
-            dist[x - 1][y - 1] = cost
-            dist[y - 1][x - 1] = cost
+        graph[x - 1].append((y - 1, cost))
+        graph[y - 1].append((x - 1, cost))
     source = int(input()) - 1
-    graph = [[] for _ in range(N)]
-    for i in range(N):
-        for j in range(i + 1, N):
-            if dist[i][j] == INF: continue
-            graph[i].append((j, dist[i][j]))
-            graph[j].append((i, dist[i][j]))
     dist = prim(graph, source, N)
     total = 0
     for sub_dist in dist:
