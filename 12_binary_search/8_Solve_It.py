@@ -1,3 +1,10 @@
+"""
+Link: https://onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1282
+Time complexity: O(N)
+Space complexity: O(N)
+Author: Nguyen Duc Hieu
+"""
+
 import math
 
 
@@ -19,28 +26,21 @@ if __name__ == '__main__':
     while True:
         try:
             p, q, r, s, t, u = map(int, input().split())
-            start = 0
-            end = 10 ** 4 + 1
             func = CalculateFunc(p, q, r, s, t, u)
-            val_end = func.calculate((end - 1) * 0.0001)
-            val_start = func.calculate(start * 0.0001)
-            if val_end > 0 or val_start < 0:
+            if func.calculate(0) < 0 or func.calculate(1) > 0:
                 print("No solution")
                 continue
-            while start < end:
-                mid = (start + end) // 2
-                val = func.calculate(mid * 0.0001)
-                if val == 0:
-                    print("{:.4f}".format(mid * 0.0001))
+            start, end, mid = 0, 1, 0
+            while end - start > 10 ** (-5):
+                mid = start + (end - start) / 2
+                if func.calculate(mid) == 0:
                     break
-                if val > 0:
-                    start = mid + 1
+                elif 0 < func.calculate(mid):
+                    start = mid
                 else:
                     end = mid
-            else:
-                if abs(func.calculate(start * 0.0001)) > abs(func.calculate((start - 1) * 0.0001)):
-                    print("{:.4f}".format((start - 1) * 0.0001))
-                else:
-                    print("{:.4f}".format(start * 0.0001))
-        except EOFError as e:
+            mid = start + (end - start) / 2
+            print(format(mid, ".4f"))
+            # print("{:.4f}".format(mid))
+        except EOFError:
             break

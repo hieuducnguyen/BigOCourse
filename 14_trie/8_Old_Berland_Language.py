@@ -1,5 +1,5 @@
 """
-Link:
+Link: https://codeforces.com/problemset/problem/37/C
 Time complexity: O(N)
 Space complexity: O(N)
 Author: Nguyen Duc Hieu

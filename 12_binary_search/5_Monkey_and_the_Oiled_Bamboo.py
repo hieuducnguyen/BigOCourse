@@ -1,6 +1,6 @@
 """
-Link:
-Time complexity: O(N)
+Link: https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3183
+Time complexity: O(N * Log(max_diff))
 Space complexity: O(N)
 Author: Nguyen Duc Hieu
 """
