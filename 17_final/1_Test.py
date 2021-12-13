@@ -1,6 +1,6 @@
 """
-Link:
-Time complexity: O(N)
+Link: https://codeforces.com/problemset/problem/471/B
+Time complexity: O(N * Log(N))
 Space complexity: O(N)
 Author: Nguyen Duc Hieu
 """
