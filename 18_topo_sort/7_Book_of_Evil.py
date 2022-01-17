@@ -6,7 +6,7 @@ Created by Hieu Nguyen on 11/12/2021
 """
 from collections import deque
 
-
+# nếu đồ  thị liên thông thôi thì có work không
 def bfs(start, graph, N, damages, D):
     visited = [-1] * N
     visited[start] = 0
