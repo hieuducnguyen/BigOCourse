@@ -9,11 +9,12 @@ if __name__ == '__main__':
     input_list = list(map(int, list(input())))
     new_list = [0]
     result_list = []
+    tmp_xor = 0
     for i in range(N):
         min_dis = min(i, K - 1)
-        tmp_xor = 0
-        for j in range(min_dis):
-            tmp_xor ^= result_list[-1 - j]
+        if len(result_list) - 1 - min_dis >= 0:
+            tmp_xor ^= result_list[len(result_list) - 1 - min_dis]
         result = tmp_xor ^ input_list[i]
+        tmp_xor ^= result
         result_list.append(result)
     print(*result_list, sep="")

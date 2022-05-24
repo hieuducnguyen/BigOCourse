@@ -1,3 +1,6 @@
+import random
+
+
 def RSHash(key):
     hash_val = 0
     a = 63689
@@ -20,7 +23,7 @@ if __name__ == '__main__':
     # hash_value = poly_hash("Algo")
     # print(hash_value)
     # exp_list = [1] * 10 ** 6
-    for i in range(1, 10 ** 6):
-        print("n", end="")
+    for i in range(500000):
+        print(str(random.randint(0, 1)), end="")
         # exp_list[i] = exp_list[i - 1] * 26
-    # print(exp_list[-1])
+        # print(exp_list[-1])

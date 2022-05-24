@@ -31,6 +31,10 @@ def permutaion2(s, start, end, result):
             permutaion2(s, start + 1, end, result)
             s[start], s[i] = s[i], s[start]
 
+# def permutaion3(s, start, end, result):
+#     if start == end:
+
+
 
 if __name__ == '__main__':
     s = list("AABB")
